@@ -1,11 +1,24 @@
 /* 專業化成果介面擴充 */
 @media (min-width:1201px){
   #point-id{position:sticky;top:0;z-index:50;margin:0 -4px 8px;padding:10px 4px 8px;background:#fff;border:0;box-shadow:none;backdrop-filter:none}
-  .borehole-profile{padding-right:64px!important;box-sizing:border-box}
-  .geology-column{right:54%!important}.sample-column{left:48%!important;right:72px!important}
+  .borehole-profile.professional-profile{padding-right:72px!important;box-sizing:border-box}
+  .professional-profile .geology-column{left:16%!important;right:55%!important}
+  .professional-profile .sample-column{left:48%!important;right:72px!important}
 }
-.map-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:-4px 0 8px;min-height:28px;color:#596970;font-size:11px}.map-opacity-inline{display:flex;align-items:center;gap:7px;white-space:nowrap}.map-opacity-inline input{width:120px;height:18px;accent-color:#176b87}.map-opacity-inline strong{width:34px;color:#176b87;font-size:11px;font-variant-numeric:tabular-nums}.map-crs-label{white-space:nowrap;color:#718087}.north-arrow{background:transparent!important;border:0!important;box-shadow:none!important;text-align:center;color:#fff;text-shadow:0 1px 3px #000,0 0 2px #000;line-height:1}.north-n{font-size:14px;font-weight:900}.north-symbol{font-size:22px;margin-top:1px}.leaflet-control-scale-line{background:rgba(255,255,255,.75);border-color:#222!important;color:#111!important;text-shadow:none!important;font-size:10px!important}
-.elevation-axis{position:absolute;right:8px;top:0;width:58px;height:100%;pointer-events:none;z-index:8;border-left:0}.elevation-axis-title{position:absolute;left:8px;top:5px;width:48px;padding:0;background:transparent;font-size:10px;font-weight:700;color:#53636a;line-height:1.15}.elevation-tick{position:absolute;left:-1000px;right:0;border-top:1px dashed #d5dde1;height:0}.elevation-tick span{position:absolute;right:0;top:-7px;min-width:38px;text-align:right;white-space:nowrap;padding:0 2px;background:#fff;font-size:10px;color:#68777e;font-variant-numeric:tabular-nums}
+/* 透明度改為地圖內右上控制，不再占用地圖上方一整列 */
+.map-toolbar,.map-crs-label{display:none!important}
+.map-opacity-control{background:rgba(255,255,255,.92);border-radius:6px;padding:7px 9px;box-shadow:0 1px 5px rgba(0,0,0,.28);color:#33454d;font-size:10px;line-height:1.2;min-width:116px}
+.map-opacity-title{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:4px;white-space:nowrap}.map-opacity-title strong{color:#176b87;font-variant-numeric:tabular-nums}.map-opacity-control input{display:block;width:116px;height:16px;margin:0;accent-color:#176b87}
+.north-arrow{background:transparent!important;border:0!important;box-shadow:none!important;text-align:center;color:#fff;text-shadow:0 1px 3px #000,0 0 2px #000;line-height:1}.north-n{font-size:14px;font-weight:900}.north-symbol{font-size:22px;margin-top:1px}.leaflet-control-scale-line{background:rgba(255,255,255,.75);border-color:#222!important;color:#111!important;text-shadow:none!important;font-size:10px!important}
+/* 剖面順序：地表下深度 → 材質 → 污染／採樣深度 → 高程。高程只留數值。 */
+.professional-profile .depth-axis{z-index:12}
+.elevation-axis{position:absolute;right:4px;top:0;width:60px;height:100%;pointer-events:none;z-index:12}
+.elevation-axis-title{display:none!important}
+.elevation-tick{position:absolute;left:0;right:0;height:0;border:0!important}
+.elevation-tick span{position:absolute;right:0;top:-7px;min-width:0;text-align:right;white-space:nowrap;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;font-size:10px;color:#68777e;font-variant-numeric:tabular-nums;line-height:14px}
+/* 深度格線只畫到高程欄之前，避免虛線穿過高程數值 */
+.professional-profile .depth-tick{right:68px!important}
+.professional-profile .depth-tick span{z-index:14}
 .platform-meta{display:none!important}.lnapl-map-icon.replacement{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#fff;border:2px solid #c98a00;color:#d99500;box-shadow:0 1px 5px rgba(0,0,0,.35);font-size:15px}
-@media(max-width:1200px){.map-toolbar{flex-wrap:wrap}.map-crs-label{white-space:normal}.elevation-axis{right:4px;width:52px}.elevation-tick span{font-size:9px}}
-@media(max-width:600px){.map-toolbar{font-size:10px;gap:5px}.map-opacity-inline input{width:90px}.map-crs-label{width:100%}}
+@media(max-width:1200px){.borehole-profile.professional-profile{padding-right:60px!important}.professional-profile .geology-column{left:18%!important;right:53%!important}.professional-profile .sample-column{left:50%!important;right:60px!important}.elevation-axis{right:2px;width:54px}.elevation-tick span{font-size:9px}.professional-profile .depth-tick{right:60px!important}.map-opacity-control{min-width:104px;padding:6px 7px}.map-opacity-control input{width:104px}}
+@media(max-width:600px){.borehole-profile.professional-profile{padding-right:48px!important}.professional-profile .geology-column{left:20%!important;right:51%!important}.professional-profile .sample-column{left:52%!important;right:48px!important}.elevation-axis{width:44px}.elevation-tick span{font-size:8px}.professional-profile .depth-tick{right:48px!important}.map-opacity-control{min-width:92px}.map-opacity-control input{width:92px}}
