@@ -1,0 +1,10 @@
+/* 專業化成果介面擴充 */
+@media (min-width:1201px){
+  #point-id{position:sticky;top:0;z-index:50;margin:-2px -4px 8px;padding:8px 4px 7px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid #e4e9ec;box-shadow:0 4px 10px rgba(31,50,60,.04)}
+}
+.map-opacity-control{background:rgba(255,255,255,.94);padding:8px 10px;border-radius:6px;box-shadow:0 1px 5px rgba(0,0,0,.28);font:12px/1.25 Arial,"Microsoft JhengHei",sans-serif;color:#263238;min-width:145px}
+.map-opacity-control label{display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:700;margin-bottom:5px}.map-opacity-control input{width:100%;accent-color:#176b87}.map-opacity-value{font-variant-numeric:tabular-nums;color:#176b87}
+.elevation-axis{position:absolute;right:8px;top:0;width:70px;height:100%;pointer-events:none;z-index:8;border-left:1px solid #7b8a91}.elevation-axis-title{position:absolute;right:0;top:6px;padding:2px 5px;background:rgba(255,255,255,.9);border-radius:3px;font-size:11px;font-weight:700;color:#53636a}.elevation-tick{position:absolute;left:-5px;width:5px;border-top:1px solid #7b8a91}.elevation-tick span{position:absolute;right:8px;top:-7px;white-space:nowrap;padding:1px 3px;background:rgba(255,255,255,.86);font-size:10px;color:#53636a;font-variant-numeric:tabular-nums}
+.platform-meta{font-size:11px;color:#718087;margin-top:3px;letter-spacing:.01em}.platform-meta span+span::before{content:"｜";margin:0 5px;color:#b0bac0}
+.lnapl-map-icon.replacement{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#fff;border:2px solid #c98a00;color:#d99500;box-shadow:0 1px 5px rgba(0,0,0,.35);font-size:15px}
+@media(max-width:1200px){.elevation-axis{right:4px;width:62px}.elevation-tick span{font-size:9px}.platform-meta{font-size:10px}}
