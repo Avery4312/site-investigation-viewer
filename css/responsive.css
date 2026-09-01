@@ -24,18 +24,21 @@ img, svg, canvas { max-width:100%; }
   .exceed strong { font-size:inherit; }
   .exceed-label { font-size:.8em; white-space:normal; }
 
-  .borehole-section { width:100% !important; overflow:hidden !important; }
-  .borehole-profile { position:relative; width:100% !important; min-width:0 !important; max-width:100% !important; margin:8px 0 0 !important; overflow:hidden !important; }
-  .depth-scale { left:0 !important; width:14% !important; }
-  .depth-tick { width:100% !important; }
-  .depth-tick span { left:0 !important; width:88% !important; padding-right:2px; font-size:clamp(8px,1.4vw,11px); }
+  /* Soil borehole: the final depth tick sits exactly on the profile bottom.
+     It must be allowed to extend below that boundary or labels such as 4.0 m
+     are cut in half. */
+  .borehole-section { width:100% !important; overflow:visible !important; padding-bottom:20px !important; }
+  .borehole-profile { position:relative; width:100% !important; min-width:0 !important; max-width:100% !important; margin:8px 0 14px !important; overflow:visible !important; }
+  .depth-scale { left:0 !important; width:14% !important; overflow:visible !important; }
+  .depth-tick { width:100% !important; overflow:visible !important; }
+  .depth-tick span { left:0 !important; width:88% !important; padding-right:2px; font-size:clamp(8px,1.4vw,11px); overflow:visible !important; }
   .geology-column { left:14% !important; width:34% !important; max-width:34% !important; }
   .sample-column { left:49% !important; width:51% !important; max-width:51% !important; }
   .geology-layer,.sample-depth-block { width:100% !important; padding:4px !important; }
   .geology-name,.sample-name { font-size:clamp(8px,1.5vw,11px); white-space:normal !important; overflow-wrap:anywhere; }
   .geology-depth,.sample-concentration { font-size:clamp(7px,1.25vw,10px); white-space:normal; }
   .profile-warning { font-size:clamp(6px,1vw,8px); padding:1px 2px; margin-left:1px; }
-  .profile-legend { max-width:100%; font-size:clamp(8px,1.3vw,10px); gap:6px; }
+  .profile-legend { max-width:100%; font-size:clamp(8px,1.3vw,10px); gap:6px; margin-top:22px !important; }
 
   .well-info-grid { grid-template-columns:1fr; gap:8px; }
   .well-profile-section { width:100% !important; overflow:hidden !important; padding-bottom:24px !important; }
@@ -70,6 +73,9 @@ img, svg, canvas { max-width:100%; }
   .large-result-table { font-size:8px; }
   .large-result-table th,.large-result-table td { padding:4px 2px !important; }
   .result-note { font-size:9px; gap:6px; }
+  .borehole-section { padding-bottom:28px !important; }
+  .borehole-profile { margin-bottom:18px !important; overflow:visible !important; }
+  .depth-tick span { top:-6px !important; line-height:12px !important; }
   .well-profile-section { padding-top:14px !important; padding-bottom:80px !important; margin-top:18px !important; }
   .well-profile-section h3 { font-size:18px !important; margin-bottom:12px !important; }
   .well-profile { width:100% !important; }
