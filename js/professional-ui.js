@@ -1,0 +1,57 @@
+// 專業化 UI：底圖透明度、浮油單一標示、剖面高程軸、平台資訊
+(function(){
+  function getBaseTileLayer(){let base=null;map.eachLayer(layer=>{if(layer instanceof L.TileLayer&&!base)base=layer;});return base;}
+
+  function addOpacityControl(){
+    const base=getBaseTileLayer(); if(!base)return;
+    const control=L.control({position:"topright"});
+    control.onAdd=function(){
+      const div=L.DomUtil.create("div","map-opacity-control");
+      div.innerHTML='<label><span>底圖透明度</span><span class="map-opacity-value">100%</span></label><input type="range" min="20" max="100" step="5" value="100" aria-label="底圖透明度">';
+      L.DomEvent.disableClickPropagation(div); L.DomEvent.disableScrollPropagation(div);
+      const slider=div.querySelector("input"), value=div.querySelector(".map-opacity-value");
+      slider.addEventListener("input",()=>{const n=Number(slider.value);base.setOpacity(n/100);value.textContent=n+"%";});
+      return div;
+    }; control.addTo(map);
+  }
+
+  function consolidateLnaplMarkers(){
+    const layers=[]; map.eachLayer(layer=>layers.push(layer));
+    let mw02Marker=null;
+    layers.forEach(layer=>{
+      if(!(layer instanceof L.Marker))return;
+      const el=layer.getElement?.();
+      if(el?.classList?.contains("lnapl-map-marker")){map.removeLayer(layer);return;}
+      const tooltip=layer.getTooltip?.();
+      if(tooltip&&String(tooltip.getContent()).trim()==="MW02")mw02Marker=layer;
+    });
+    if(mw02Marker){
+      mw02Marker.setIcon(L.divIcon({className:"lnapl-map-marker",html:'<div class="lnapl-map-icon replacement" title="MW02 具有浮油">◆</div>',iconSize:[28,28],iconAnchor:[14,14],tooltipAnchor:[0,-16]}));
+      mw02Marker.bindTooltip("MW02",{permanent:true,direction:"top",className:"mw-tooltip"});
+    }
+  }
+
+  const originalBorehole=window.createBoreholeProfile;
+  if(typeof originalBorehole==="function"){
+    window.createBoreholeProfile=function(point,container,standards){
+      originalBorehole(point,container,standards);
+      const sections=container.querySelectorAll(".borehole-section"); const section=sections[sections.length-1]; if(!section)return;
+      const profile=section.querySelector(".borehole-profile"); if(!profile||typeof point.ground_elevation!=="number")return;
+      const maxDepth=Math.max(...(point.geology||[]).map(x=>Number(x.to)||0),...(point.samples||[]).map(x=>Number(x.depth_to)||0));
+      if(!isFinite(maxDepth)||maxDepth<=0)return;
+      const axis=document.createElement("div"); axis.className="elevation-axis";
+      const title=document.createElement("div"); title.className="elevation-axis-title"; title.textContent="高程 EL. (m)"; axis.appendChild(title);
+      for(let depth=0;depth<=maxDepth+0.001;depth+=0.5){const tick=document.createElement("div");tick.className="elevation-tick";tick.style.top=`${(depth/maxDepth)*100}%`;const el=Number(point.ground_elevation)-depth;tick.innerHTML=`<span>${el.toFixed(2)}</span>`;axis.appendChild(tick);}
+      profile.appendChild(axis);
+    };
+  }
+
+  function addPlatformMeta(){
+    const header=document.querySelector("header"); if(!header||header.querySelector(".platform-meta"))return;
+    const meta=document.createElement("div"); meta.className="platform-meta";
+    meta.innerHTML='<span>系統：環境場址調查成果平台</span><span>資料來源：場址調查資料庫</span><span>地圖：Google Satellite</span><span>地圖引擎：Leaflet</span><span>製作單位：環境顧問專案團隊</span>';
+    const desc=document.getElementById("site-description"); desc?.insertAdjacentElement("afterend",meta);
+  }
+
+  window.addEventListener("load",()=>{addOpacityControl();setTimeout(consolidateLnaplMarkers,80);addPlatformMeta();});
+})();
