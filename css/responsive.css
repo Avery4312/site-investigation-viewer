@@ -39,7 +39,31 @@ img, svg, canvas { max-width: 100%; }
   .well-depth-line span { width:14% !important; padding-right:2px; font-size:clamp(8px,1.4vw,11px); }
   .well-casing,.well-screen,.lnapl-layer,.well-bottom { left:40% !important; width:14% !important; }
   .groundwater-level { left:16% !important; width:70% !important; overflow:visible !important; }
-  .groundwater-level span { position:absolute !important; left:auto !important; right:4px !important; top:auto !important; bottom:5px !important; width:auto !important; max-width:62% !important; padding:2px 5px !important; margin:0 !important; color:#2589bd !important; background:rgba(255,255,255,.94) !important; border-radius:3px; font-size:clamp(8px,1.35vw,10px) !important; line-height:1.2 !important; text-align:right !important; white-space:nowrap !important; transform:none !important; overflow:visible !important; z-index:30 !important; }
+
+  /* Keep the full water-level text inside the line at every responsive width. */
+  .groundwater-level span {
+    position:absolute !important;
+    left:72% !important;
+    right:auto !important;
+    top:-1.55em !important;
+    bottom:auto !important;
+    width:28% !important;
+    max-width:none !important;
+    padding:0 2px !important;
+    margin:0 !important;
+    color:#2589bd !important;
+    background:rgba(255,255,255,.94) !important;
+    border-radius:2px;
+    font-size:clamp(7px,1.15vw,10px) !important;
+    line-height:1.15 !important;
+    text-align:left !important;
+    white-space:normal !important;
+    overflow:visible !important;
+    overflow-wrap:anywhere !important;
+    transform:none !important;
+    z-index:30 !important;
+  }
+
   .well-screen span,.lnapl-label,.well-bottom span { left:110% !important; width:210% !important; font-size:clamp(7px,1.2vw,9px) !important; white-space:normal; }
   .lnapl-icon { left:-145% !important; }
   .detail-tabs { max-width:calc(100% + 28px); overflow-x:auto; }
@@ -49,7 +73,7 @@ img, svg, canvas { max-width: 100%; }
   .map-status-legend { min-width:0 !important; max-width:min(180px,70vw); }
 }
 
-/* Real phone layout: use short viewport side too, so landscape iPhone does not become tablet/desktop scale. */
+/* Real phone layout in portrait and landscape. */
 @media (max-width:600px), (max-height:600px) and (pointer:coarse) {
   header { padding:10px; }
   header p { font-size:12px; line-height:1.4; }
@@ -63,14 +87,29 @@ img, svg, canvas { max-width: 100%; }
   .large-result-table th,.large-result-table td { padding:4px 2px !important; }
   .result-note { font-size:9px; gap:6px; }
 
-  /* Compact well diagram on phones in BOTH portrait and landscape. */
   .well-profile-section { padding-top:14px !important; margin-top:18px !important; }
   .well-profile-section h3 { font-size:18px !important; margin-bottom:12px !important; }
   .well-profile { width:100% !important; }
   .well-depth-line span { width:12% !important; font-size:8px !important; }
   .well-casing,.well-screen,.lnapl-layer,.well-bottom { left:38% !important; width:12% !important; }
-  .groundwater-level { left:14% !important; width:66% !important; }
-  .groundwater-level span { right:2px !important; max-width:54% !important; font-size:8px !important; bottom:4px !important; padding:1px 3px !important; }
+  .groundwater-level { left:14% !important; width:72% !important; }
+
+  /* Phone-specific water label: move inward and shrink/wrap with viewport. */
+  .groundwater-level span {
+    left:69% !important;
+    right:auto !important;
+    top:-2.55em !important;
+    width:30% !important;
+    max-width:none !important;
+    padding:1px 2px !important;
+    font-size:7px !important;
+    line-height:1.1 !important;
+    text-align:left !important;
+    white-space:normal !important;
+    overflow-wrap:normal !important;
+    word-break:keep-all !important;
+  }
+
   .well-screen span { left:115% !important; width:165% !important; font-size:8px !important; }
   .lnapl-label { left:115% !important; width:190% !important; font-size:8px !important; white-space:nowrap !important; }
   .lnapl-icon { left:-175% !important; transform:translateY(-50%) scale(.82) !important; }
