@@ -11,7 +11,6 @@ img, svg, canvas { max-width: 100%; }
   .viewer { display:block !important; width:100% !important; max-width:100% !important; height:auto !important; padding:10px !important; overflow:hidden !important; }
   .map-panel,.info-panel { display:block; width:100% !important; max-width:100% !important; height:auto !important; min-height:0; margin:0 0 10px; padding:14px; overflow-x:hidden !important; }
   #map { display:block; width:100% !important; height:min(48vh,420px); min-height:260px; }
-
   .table-wrapper { display:block; width:100% !important; max-width:100% !important; overflow-x:hidden !important; }
   .large-result-table { width:100% !important; min-width:0 !important; max-width:100% !important; table-layout:fixed !important; font-size:clamp(9px,1.8vw,14px); }
   .large-result-table th,.large-result-table td { min-width:0 !important; padding:clamp(4px,1vw,9px) 3px !important; overflow-wrap:anywhere; word-break:break-word; }
@@ -40,28 +39,37 @@ img, svg, canvas { max-width: 100%; }
   .well-depth-line span { width:14% !important; padding-right:2px; font-size:clamp(8px,1.4vw,11px); }
   .well-casing,.well-screen,.lnapl-layer,.well-bottom { left:40% !important; width:14% !important; }
 
-  /* Water line: keep the label inside the visible profile instead of clipping it. */
-  .groundwater-level { left:16% !important; width:70% !important; overflow:visible !important; }
+  /* The desktop rule places the water label 310px to the right.
+     Override it completely and anchor the label inside the water line. */
+  .groundwater-level {
+    left:16% !important;
+    width:70% !important;
+    overflow:visible !important;
+  }
   .groundwater-level span {
     position:absolute !important;
-    left:2px !important;
+    left:auto !important;
+    right:4px !important;
     top:auto !important;
-    bottom:4px !important;
+    bottom:5px !important;
     width:auto !important;
-    max-width:calc(100% - 4px) !important;
-    padding:1px 4px !important;
+    max-width:62% !important;
+    padding:2px 5px !important;
+    margin:0 !important;
+    color:#2589bd !important;
+    background:rgba(255,255,255,.94) !important;
     border-radius:3px;
-    background:rgba(255,255,255,.88);
     font-size:clamp(8px,1.35vw,10px) !important;
-    line-height:1.25 !important;
+    line-height:1.2 !important;
+    text-align:right !important;
     white-space:nowrap !important;
+    transform:none !important;
     overflow:visible !important;
-    z-index:20;
+    z-index:30 !important;
   }
 
   .well-screen span,.lnapl-label,.well-bottom span { left:110% !important; width:210% !important; font-size:clamp(7px,1.2vw,9px) !important; white-space:normal; }
   .lnapl-icon { left:-145% !important; }
-
   .detail-tabs { max-width:calc(100% + 28px); overflow-x:auto; }
   .history-chart { width:100%; max-width:100%; overflow-x:auto; }
   .excel-import-bar { width:100%; max-width:100%; }
@@ -81,5 +89,5 @@ img, svg, canvas { max-width: 100%; }
   .large-result-table { font-size:8px; }
   .large-result-table th,.large-result-table td { padding:4px 2px !important; }
   .result-note { font-size:9px; gap:6px; }
-  .groundwater-level span { font-size:8px !important; bottom:3px !important; }
+  .groundwater-level span { right:2px !important; max-width:68% !important; font-size:8px !important; bottom:4px !important; }
 }
