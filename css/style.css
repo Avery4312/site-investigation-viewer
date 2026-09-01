@@ -1,0 +1,927 @@
+/* ===============================
+   全站基本設定
+   =============================== */
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+    font-family: Arial, "Microsoft JhengHei", sans-serif;
+    background-color: #f4f6f8;
+    color: #222;
+}
+
+
+/* ===============================
+   頁首
+   =============================== */
+
+header {
+    padding: 20px 30px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+header h1 {
+    margin: 0 0 8px 0;
+}
+
+header p {
+    margin: 0;
+    color: #666;
+}
+
+
+/* ===============================
+   主畫面
+   左側地圖 + 右側資料
+   =============================== */
+
+.viewer {
+    display: grid;
+
+    /* 左側 45%、右側 55% */
+    grid-template-columns: 45% 55%;
+
+    gap: 20px;
+    padding: 20px;
+
+    /*
+       將工作區限制在瀏覽器視窗內
+       右側資料再自己捲動
+    */
+    height: calc(100vh - 105px);
+
+    box-sizing: border-box;
+
+    /* 防止右側內容把整個網頁撐長 */
+    overflow: hidden;
+}
+
+
+/* ===============================
+   左側地圖區
+   =============================== */
+
+.map-panel {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+
+    height: 100%;
+    min-height: 0;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    /*
+       使用 flex，
+       讓地圖自動填滿標題下面剩餘空間
+    */
+    display: flex;
+    flex-direction: column;
+}
+
+.map-panel h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+
+    flex-shrink: 0;
+}
+
+
+/* Leaflet 地圖 */
+
+#map {
+    width: 100%;
+
+    /*
+       自動填滿左側剩餘高度
+    */
+    flex: 1;
+
+    min-height: 0;
+
+    border-radius: 6px;
+}
+
+
+/* ===============================
+   右側資料區
+   =============================== */
+
+.info-panel {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+
+    height: 100%;
+    min-height: 0;
+
+    box-sizing: border-box;
+
+    /*
+       關鍵設定：
+       只有右側資料上下捲動
+    */
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-gutter: stable;
+}
+
+.info-panel h2 {
+    margin-top: 0;
+}
+
+
+/* ===============================
+   隱藏元素
+   =============================== */
+
+.hidden {
+    display: none;
+}
+
+
+/* ===============================
+   舊版樣品卡
+   目前保留，之後若不用可以刪除
+   =============================== */
+
+.sample-card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.sample-card h3 {
+    margin-top: 0;
+}
+
+
+/* ===============================
+   基本分析結果表格
+   =============================== */
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.result-table th,
+.result-table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.result-table th {
+    background-color: #f7f7f7;
+}
+
+
+/* ===============================
+   大型分析結果表
+   =============================== */
+
+.table-wrapper {
+    width: 100%;
+
+    /*
+       如果分析項目很多，
+       只有表格自己左右捲動
+    */
+    overflow-x: auto;
+
+    margin-top: 15px;
+}
+
+.large-result-table {
+    width: 100%;
+    min-width: 600px;
+
+    border-collapse: collapse;
+
+    background-color: white;
+}
+
+.large-result-table th,
+.large-result-table td {
+    padding: 12px 14px;
+
+    border: 1px solid #ddd;
+
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+/* 表頭 */
+
+.large-result-table thead th {
+    background-color: #f2f4f6;
+
+    font-weight: 700;
+}
+
+
+/* 土壤污染管制標準 */
+
+.large-result-table .standard-row th {
+    background-color: #fff4df;
+
+    border-bottom: 2px solid #d8a44a;
+}
+
+
+/* 樣品編號 */
+
+.depth-cell {
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    background-color: #fafafa;
+}
+
+
+/* 無資料 */
+
+.no-data {
+    color: #999;
+}
+
+
+/* ===============================
+   超過管制標準
+   =============================== */
+
+.exceed {
+    background-color: #ffe3e3;
+}
+
+.exceed strong {
+    font-size: 16px;
+}
+
+.exceed-label {
+    margin-top: 4px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #b42318;
+}
+
+
+/* ===============================
+   表格下方說明
+   =============================== */
+
+.result-note {
+    display: flex;
+
+    gap: 20px;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    margin-top: 12px;
+
+    color: #666;
+
+    font-size: 13px;
+}
+
+.exceed-example {
+    padding: 4px 8px;
+
+    border-radius: 4px;
+
+    background-color: #ffe3e3;
+
+    color: #b42318;
+
+    font-weight: 700;
+}
+
+
+/* ===============================
+   垂直鑽孔剖面
+   =============================== */
+
+.borehole-section {
+    margin-top: 35px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #ddd;
+}
+
+.borehole-section h3 {
+    margin-top: 0;
+
+    margin-bottom: 20px;
+}
+
+
+/* ===============================
+   整個垂直剖面
+   =============================== */
+
+.borehole-profile {
+    position: relative;
+
+    /*
+       剖面寬度固定，
+       避免右側縮小時全部擠在一起
+    */
+    min-width: 620px;
+
+    margin-top: 10px;
+
+    margin-left: 15px;
+
+    border-top: 2px solid #555;
+}
+
+
+/* ===============================
+   深度刻度
+   =============================== */
+
+.depth-scale {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 75px;
+    height: 100%;
+}
+
+.depth-tick {
+    position: absolute;
+
+    left: 0;
+
+    width: 100%;
+    height: 1px;
+
+    border-top: 1px dashed #ccc;
+}
+
+.depth-tick span {
+    position: absolute;
+
+    top: -9px;
+    left: 0;
+
+    width: 55px;
+
+    padding-right: 8px;
+
+    background-color: white;
+
+    color: #666;
+
+    font-size: 12px;
+
+    text-align: right;
+}
+
+
+/* ===============================
+   地層柱
+   =============================== */
+
+.geology-column {
+    position: absolute;
+
+    left: 80px;
+    top: 0;
+
+    width: 180px;
+    height: 100%;
+
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+}
+
+.geology-layer {
+    position: absolute;
+
+    left: 0;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 8px 10px;
+
+    border-bottom: 1px solid #999;
+
+    background-color: #f1eee7;
+
+    overflow: hidden;
+}
+
+
+/* 不同地層稍微交錯 */
+
+.geology-layer:nth-child(2n) {
+    background-color: #e7e2d8;
+}
+
+
+/* 地層名稱 */
+
+.geology-name {
+    display: block;
+
+    font-weight: 700;
+}
+
+
+/* 地層深度 */
+
+.geology-depth {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #666;
+
+    font-size: 11px;
+}
+
+
+/* ===============================
+   採樣柱
+   =============================== */
+
+.sample-column {
+    position: absolute;
+
+    left: 280px;
+    top: 0;
+
+    width: 320px;
+    height: 100%;
+}
+
+
+/* 每個垂直樣品 */
+
+.sample-depth-block {
+    position: absolute;
+
+    left: 0;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 6px 10px;
+
+    border: 1px solid #b9c5d0;
+
+    background-color: #edf3f7;
+
+    overflow: hidden;
+}
+
+
+/* TPH 超標樣品 */
+
+.sample-depth-block.sample-exceed {
+    border-color: #e09b9b;
+
+    background-color: #ffe3e3;
+}
+
+
+/* S01(0–0.5) */
+
+.sample-name {
+    font-weight: 700;
+}
+
+
+/* TPH 濃度 */
+
+.sample-concentration {
+    margin-top: 3px;
+
+    font-size: 12px;
+
+    color: #555;
+}
+
+
+/* 超標標籤 */
+
+.profile-warning {
+    display: inline-block;
+
+    margin-left: 6px;
+
+    padding: 2px 5px;
+
+    border-radius: 3px;
+
+    background-color: #b42318;
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* ===============================
+   剖面圖例
+   =============================== */
+
+.profile-legend {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    margin-top: 15px;
+
+    color: #666;
+
+    font-size: 12px;
+}
+
+.profile-exceed-legend {
+    padding: 3px 7px;
+
+    border-radius: 3px;
+
+    background-color: #ffe3e3;
+
+    color: #b42318;
+
+    font-weight: 700;
+}
+
+
+/* ===============================
+   手機 / 小螢幕版
+   =============================== */
+
+@media (max-width: 900px) {
+
+    /*
+       手機不採左右固定版面，
+       改回一般上下排列
+    */
+
+    html,
+    body {
+        height: auto;
+        overflow: auto;
+    }
+
+    .viewer {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        height: auto;
+
+        overflow: visible;
+    }
+
+
+    .map-panel {
+        height: auto;
+
+        overflow: visible;
+    }
+
+
+    #map {
+        flex: none;
+
+        height: 450px;
+    }
+
+
+    .info-panel {
+        height: auto;
+
+        overflow: visible;
+    }
+
+}
+
+/* ============================================================
+   地下水監測井地圖符號
+   ============================================================ */
+
+.monitoring-well-marker {
+    background: transparent;
+    border: none;
+}
+
+
+/* 監測井外圈 */
+
+.mw-symbol {
+    width: 20px;
+    height: 20px;
+
+    box-sizing: border-box;
+
+    border: 3px solid #176b87;
+    border-radius: 50%;
+
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+
+/* 監測井中心 */
+
+.mw-inner {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background-color: #176b87;
+}
+
+
+/* MW 標籤 */
+
+.mw-tooltip {
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   監測井基本資料
+   ============================================================ */
+
+.well-info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+
+.well-info-item {
+    padding: 15px;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    background-color: #f8fafb;
+}
+
+
+.well-info-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #666;
+
+    font-size: 12px;
+}
+
+
+.well-info-item strong {
+    font-size: 17px;
+}
+
+
+/* ============================================================
+   地下水分析結果
+   ============================================================ */
+
+.groundwater-result-title {
+    margin-top: 10px;
+}
+
+
+.groundwater-result-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+
+.groundwater-result-table th,
+.groundwater-result-table td {
+    padding: 12px 14px;
+
+    border: 1px solid #ddd;
+
+    text-align: center;
+}
+
+
+.groundwater-result-table th {
+    background-color: #f2f4f6;
+}
+
+
+/* ============================================================
+   監測井垂直構造
+   ============================================================ */
+
+.well-profile-section {
+    margin-top: 35px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #ddd;
+}
+
+
+.well-profile-section h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+
+.well-profile {
+    position: relative;
+
+    min-width: 500px;
+
+    margin-left: 20px;
+
+    border-top: 2px solid #555;
+}
+
+
+/* 深度水平線 */
+
+.well-depth-line {
+    position: absolute;
+
+    left: 0;
+
+    width: 100%;
+
+    border-top: 1px dashed #ddd;
+}
+
+
+.well-depth-line span {
+    position: absolute;
+
+    top: -9px;
+    left: 0;
+
+    width: 45px;
+
+    padding-right: 8px;
+
+    background-color: white;
+
+    color: #666;
+
+    font-size: 12px;
+
+    text-align: right;
+}
+
+
+/* ============================================================
+   井管
+   ============================================================ */
+
+.well-casing {
+    position: absolute;
+
+    top: 0;
+    left: 150px;
+
+    width: 50px;
+
+    box-sizing: border-box;
+
+    border-left: 5px solid #666;
+    border-right: 5px solid #666;
+
+    background-color: rgba(240, 240, 240, 0.5);
+}
+
+
+/* ============================================================
+   篩管
+   ============================================================ */
+
+.well-screen {
+    position: absolute;
+
+    left: 150px;
+
+    width: 50px;
+
+    box-sizing: border-box;
+
+    border-left: 5px dashed #176b87;
+    border-right: 5px dashed #176b87;
+
+    background-color: rgba(23, 107, 135, 0.08);
+}
+
+
+.well-screen span {
+    position: absolute;
+
+    left: 65px;
+    top: 10px;
+
+    width: 180px;
+
+    color: #176b87;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   地下水位
+   ============================================================ */
+
+.groundwater-level {
+    position: absolute;
+
+    left: 75px;
+
+    width: 300px;
+
+    border-top: 3px solid #2589bd;
+}
+
+
+.groundwater-level::before {
+    content: "▼";
+
+    position: absolute;
+
+    left: -5px;
+    top: -11px;
+
+    color: #2589bd;
+}
+
+
+.groundwater-level span {
+    position: absolute;
+
+    left: 310px;
+    top: -10px;
+
+    width: 160px;
+
+    color: #2589bd;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   手機
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .well-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

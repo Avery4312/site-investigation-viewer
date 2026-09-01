@@ -1,0 +1,313 @@
+{
+  "site": {
+    "name": "示範工業場址",
+    "project": "土壤及地下水污染調查",
+    "description": "本資料為系統功能展示用虛構資料"
+  },
+
+  "standards": {
+    "TPH": 1000,
+    "苯": 0.5,
+    "甲苯": 500,
+    "TCE": 0.05
+  },
+
+  "sampling_points": [
+
+    {
+      "id": "S01",
+      "type": "土壤調查點",
+      "latitude": 25.0342,
+      "longitude": 121.5638,
+      "ground_elevation": 12.8,
+
+      "geology": [
+        {"from": 0, "to": 0.5, "material": "回填土"},
+        {"from": 0.5, "to": 2.0, "material": "粉質砂"},
+        {"from": 2.0, "to": 4.0, "material": "細砂"}
+      ],
+
+      "samples": [
+        {
+          "depth_from": 0,
+          "depth_to": 0.5,
+          "results": {
+            "TPH": {"value": 180, "unit": "mg/kg"},
+            "苯": {"value": 0.02, "unit": "mg/kg"},
+            "甲苯": {"value": 1.8, "unit": "mg/kg"},
+            "TCE": {"value": 0.008, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 0.5,
+          "depth_to": 1,
+          "results": {
+            "TPH": {"value": 420, "unit": "mg/kg"},
+            "苯": {"value": 0.08, "unit": "mg/kg"},
+            "甲苯": {"value": 4.2, "unit": "mg/kg"},
+            "TCE": {"value": 0.012, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 1,
+          "depth_to": 2,
+          "results": {
+            "TPH": {"value": 260, "unit": "mg/kg"},
+            "苯": {"value": 0.04, "unit": "mg/kg"},
+            "甲苯": {"value": 2.1, "unit": "mg/kg"},
+            "TCE": {"value": 0.009, "unit": "mg/kg"}
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "S02",
+      "type": "土壤調查點",
+      "latitude": 25.0341,
+      "longitude": 121.5652,
+      "ground_elevation": 12.6,
+
+      "geology": [
+        {"from": 0, "to": 0.5, "material": "回填土"},
+        {"from": 0.5, "to": 2.5, "material": "粉質砂"},
+        {"from": 2.5, "to": 4.0, "material": "細砂"}
+      ],
+
+      "samples": [
+        {
+          "depth_from": 0,
+          "depth_to": 0.5,
+          "results": {
+            "TPH": {"value": 760, "unit": "mg/kg"},
+            "苯": {"value": 0.31, "unit": "mg/kg"},
+            "甲苯": {"value": 18, "unit": "mg/kg"},
+            "TCE": {"value": 0.021, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 0.5,
+          "depth_to": 1,
+          "results": {
+            "TPH": {"value": 1850, "unit": "mg/kg"},
+            "苯": {"value": 0.72, "unit": "mg/kg"},
+            "甲苯": {"value": 41, "unit": "mg/kg"},
+            "TCE": {"value": 0.038, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 1,
+          "depth_to": 2,
+          "results": {
+            "TPH": {"value": 2460, "unit": "mg/kg"},
+            "苯": {"value": 0.91, "unit": "mg/kg"},
+            "甲苯": {"value": 67, "unit": "mg/kg"},
+            "TCE": {"value": 0.061, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 2,
+          "depth_to": 3,
+          "results": {
+            "TPH": {"value": 880, "unit": "mg/kg"},
+            "苯": {"value": 0.24, "unit": "mg/kg"},
+            "甲苯": {"value": 19, "unit": "mg/kg"},
+            "TCE": {"value": 0.033, "unit": "mg/kg"}
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "S03",
+      "type": "土壤調查點",
+      "latitude": 25.0333,
+      "longitude": 121.5650,
+      "ground_elevation": 12.5,
+
+      "geology": [
+        {"from": 0, "to": 0.6, "material": "回填土"},
+        {"from": 0.6, "to": 2.2, "material": "粉質砂"},
+        {"from": 2.2, "to": 4.0, "material": "細砂"}
+      ],
+
+      "samples": [
+        {
+          "depth_from": 0,
+          "depth_to": 0.5,
+          "results": {
+            "TPH": {"value": 350, "unit": "mg/kg"},
+            "苯": {"value": 0.15, "unit": "mg/kg"},
+            "甲苯": {"value": 12, "unit": "mg/kg"},
+            "TCE": {"value": 0.018, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 0.5,
+          "depth_to": 1,
+          "results": {
+            "TPH": {"value": 1250, "unit": "mg/kg"},
+            "苯": {"value": 0.55, "unit": "mg/kg"},
+            "甲苯": {"value": 35, "unit": "mg/kg"},
+            "TCE": {"value": 0.044, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 1,
+          "depth_to": 1.5,
+          "results": {
+            "TPH": {"value": 2400, "unit": "mg/kg"},
+            "苯": {"value": 0.82, "unit": "mg/kg"},
+            "甲苯": {"value": 58, "unit": "mg/kg"},
+            "TCE": {"value": 0.073, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 1.5,
+          "depth_to": 2,
+          "results": {
+            "TPH": {"value": 980, "unit": "mg/kg"},
+            "苯": {"value": 0.33, "unit": "mg/kg"},
+            "甲苯": {"value": 22, "unit": "mg/kg"},
+            "TCE": {"value": 0.041, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 2,
+          "depth_to": 3,
+          "results": {
+            "TPH": {"value": 310, "unit": "mg/kg"},
+            "苯": {"value": 0.09, "unit": "mg/kg"},
+            "甲苯": {"value": 7, "unit": "mg/kg"},
+            "TCE": {"value": 0.019, "unit": "mg/kg"}
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "S04",
+      "type": "土壤調查點",
+      "latitude": 25.0328,
+      "longitude": 121.5662,
+      "ground_elevation": 12.3,
+
+      "geology": [
+        {"from": 0, "to": 0.5, "material": "回填土"},
+        {"from": 0.5, "to": 4, "material": "細砂"}
+      ],
+
+      "samples": [
+        {
+          "depth_from": 0,
+          "depth_to": 1,
+          "results": {
+            "TPH": {"value": 95, "unit": "mg/kg"},
+            "苯": {"value": 0.01, "unit": "mg/kg"},
+            "甲苯": {"value": 0.8, "unit": "mg/kg"},
+            "TCE": {"value": 0.006, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 1,
+          "depth_to": 2,
+          "results": {
+            "TPH": {"value": 72, "unit": "mg/kg"},
+            "苯": {"value": 0.008, "unit": "mg/kg"},
+            "甲苯": {"value": 0.5, "unit": "mg/kg"},
+            "TCE": {"value": 0.004, "unit": "mg/kg"}
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "S05",
+      "type": "土壤調查點",
+      "latitude": 25.0337,
+      "longitude": 121.5665,
+      "ground_elevation": 12.4,
+
+      "geology": [
+        {"from": 0, "to": 0.5, "material": "回填土"},
+        {"from": 0.5, "to": 4, "material": "粉質砂"}
+      ],
+
+      "samples": [
+        {
+          "depth_from": 0,
+          "depth_to": 1,
+          "results": {
+            "TPH": {"value": 140, "unit": "mg/kg"},
+            "苯": {"value": 0.015, "unit": "mg/kg"},
+            "甲苯": {"value": 1.1, "unit": "mg/kg"},
+            "TCE": {"value": 0.007, "unit": "mg/kg"}
+          }
+        },
+        {
+          "depth_from": 1,
+          "depth_to": 2,
+          "results": {
+            "TPH": {"value": 110, "unit": "mg/kg"},
+            "苯": {"value": 0.011, "unit": "mg/kg"},
+            "甲苯": {"value": 0.9, "unit": "mg/kg"},
+            "TCE": {"value": 0.005, "unit": "mg/kg"}
+          }
+        }
+      ]
+    }
+
+  ],
+
+  "monitoring_wells": [
+
+    {
+      "id": "MW01",
+      "type": "地下水監測井",
+      "latitude": 25.0338,
+      "longitude": 121.5635,
+      "ground_elevation": 12.7,
+      "water_depth": 3.1,
+      "screen_from": 3.5,
+      "screen_to": 7.5,
+      "results": {
+        "TPH": {"value": 0.12, "unit": "mg/L"},
+        "苯": {"value": 0.018, "unit": "mg/L"},
+        "TCE": {"value": 0.012, "unit": "mg/L"}
+      }
+    },
+
+    {
+      "id": "MW02",
+      "type": "地下水監測井",
+      "latitude": 25.0331,
+      "longitude": 121.5648,
+      "ground_elevation": 12.4,
+      "water_depth": 3.4,
+      "screen_from": 4,
+      "screen_to": 8,
+      "results": {
+        "TPH": {"value": 1.8, "unit": "mg/L"},
+        "苯": {"value": 0.067, "unit": "mg/L"},
+        "TCE": {"value": 0.084, "unit": "mg/L"}
+      }
+    },
+
+    {
+      "id": "MW03",
+      "type": "地下水監測井",
+      "latitude": 25.0327,
+      "longitude": 121.5660,
+      "ground_elevation": 12.2,
+      "water_depth": 3.6,
+      "screen_from": 4,
+      "screen_to": 8,
+      "results": {
+        "TPH": {"value": 0.09, "unit": "mg/L"},
+        "苯": {"value": 0.006, "unit": "mg/L"},
+        "TCE": {"value": 0.009, "unit": "mg/L"}
+      }
+    }
+
+  ]
+}
