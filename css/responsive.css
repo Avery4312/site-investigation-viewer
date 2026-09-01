@@ -1,81 +1,82 @@
-/* ============================================================
-   Responsive layout
-   Desktop keeps the original layout. Tablet/mobile overrides only.
-   ============================================================ */
-
-html, body { max-width: 100%; }
-body { overflow-x: hidden; }
-.viewer, .map-panel, .info-panel, #point-detail, #sample-results { min-width: 0; }
-.table-wrapper { max-width: 100%; -webkit-overflow-scrolling: touch; }
+/* Responsive layout: desktop unchanged, tablet/phone constrained to viewport. */
+*, *::before, *::after { box-sizing: border-box; }
+html { width: 100%; max-width: 100%; overflow-x: clip; }
+body { width: 100%; max-width: 100%; overflow-x: hidden; }
+header, .viewer, .map-panel, .info-panel, #point-detail, #sample-results,
+.table-wrapper, .borehole-section, .well-profile-section { min-width: 0; max-width: 100%; }
+img, svg, canvas { max-width: 100%; }
 
 @media (max-width: 900px) {
-  header { padding: 16px 18px; }
+  header { width: 100%; padding: 16px 18px; }
   header h1 { font-size: 24px; }
-  .viewer { grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 14px; width: 100%; max-width: 100%; }
-  .map-panel, .info-panel { width: 100%; max-width: 100%; padding: 16px; }
-  #map { height: min(52vh, 430px); min-height: 300px; }
-  .large-result-table { width: max-content; min-width: 100%; }
-  .large-result-table th, .large-result-table td { padding: 10px 11px; }
+  .viewer { display: block; width: 100%; height: auto; padding: 14px; overflow: hidden; }
+  .map-panel, .info-panel { width: 100%; height: auto; margin: 0 0 14px; padding: 16px; overflow: hidden; }
+  #map { width: 100%; height: min(52vh,430px); min-height: 300px; }
 }
 
-/* Phone: everything must stay inside the viewport. */
 @media (max-width: 600px) {
-  header { padding: 12px; }
+  header { padding: 12px; overflow: hidden; }
   header h1 { font-size: 20px; line-height: 1.3; }
   header p { font-size: 13px; line-height: 1.45; }
-  .viewer { padding: 8px; gap: 8px; }
-  .map-panel, .info-panel { padding: 12px; border-radius: 7px; overflow-x: hidden; }
+  .viewer { padding: 8px; }
+  .map-panel, .info-panel { padding: 12px; border-radius: 7px; }
   .map-panel h2, .info-panel h2 { font-size: 20px; margin-bottom: 12px; }
-  #map { height: 42vh; min-height: 270px; border-radius: 5px; }
+  #map { height: 42vh; min-height: 270px; }
   #point-id { font-size: 27px; margin-bottom: 12px; }
   #point-type { font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
   #sample-results h3 { font-size: 20px; line-height: 1.35; }
 
-  /* Analysis table is genuinely responsive on phones: no fixed 500/600px width. */
-  .table-wrapper { width: 100%; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
-  .large-result-table { width: 100%; min-width: 0; table-layout: fixed; font-size: 10px; }
-  .large-result-table th, .large-result-table td { min-width: 0; padding: 6px 3px; overflow-wrap: anywhere; word-break: break-word; }
-  .large-result-table th:first-child, .large-result-table td:first-child { width: 32%; min-width: 0; }
-  .depth-cell { white-space: normal; font-size: 10px; }
-  .exceed strong { font-size: 11px; }
-  .exceed-label { font-size: 9px; white-space: normal; }
-  .result-note { gap: 8px 12px; font-size: 11px; }
+  /* Tables: never determine page width. */
+  .table-wrapper { display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .large-result-table { width: 100% !important; min-width: 0 !important; max-width: 100% !important; table-layout: fixed; font-size: 9px; }
+  .large-result-table th, .large-result-table td { min-width: 0 !important; padding: 5px 2px; overflow-wrap: anywhere; word-break: break-word; }
+  .large-result-table th:first-child, .large-result-table td:first-child { width: 31%; min-width: 0 !important; }
+  .depth-cell { white-space: normal !important; font-size: 9px; }
+  .exceed strong { font-size: 10px; }
+  .exceed-label { font-size: 8px; white-space: normal; }
+  .result-note { gap: 7px 10px; font-size: 10px; }
 
+  /* Soil profile: remove every desktop fixed width and position columns proportionally. */
+  .borehole-section { width: 100% !important; overflow: hidden !important; }
+  .borehole-profile { position: relative; width: 100% !important; min-width: 0 !important; max-width: 100% !important; margin: 8px 0 0 !important; overflow: hidden; }
+  .depth-scale { left: 0 !important; width: 14% !important; }
+  .depth-tick { width: 100% !important; }
+  .depth-tick span { left: 0 !important; width: 88% !important; padding-right: 2px; font-size: 8px; }
+  .geology-column { left: 14% !important; width: 34% !important; max-width: 34% !important; }
+  .sample-column { left: 49% !important; width: 51% !important; max-width: 51% !important; }
+  .geology-layer { width: 100% !important; padding: 3px 4px; font-size: 9px; }
+  .geology-name { font-size: 9px; overflow-wrap: anywhere; }
+  .geology-depth { font-size: 7px; margin-top: 1px; }
+  .sample-depth-block { width: 100% !important; padding: 3px 4px; font-size: 8px; }
+  .sample-name { display: block; max-width: 100%; font-size: 8px; white-space: normal; overflow-wrap: anywhere; }
+  .sample-concentration { font-size: 7px; white-space: normal; }
+  .profile-warning { font-size: 6px; padding: 1px 2px; margin-left: 1px; }
+  .profile-legend { max-width: 100%; font-size: 9px; gap: 6px; }
+
+  /* Monitoring-well content/profile. */
   .well-info-grid { grid-template-columns: 1fr; gap: 8px; margin: 14px 0 22px; }
-  .well-info-item { padding: 11px; }
-  .well-info-item strong { font-size: 15px; }
-  .groundwater-result-table { table-layout: fixed; font-size: 10px; }
-  .groundwater-result-table th, .groundwater-result-table td { padding: 7px 3px; overflow-wrap: anywhere; }
+  .well-info-item { padding: 11px; min-width: 0; }
+  .groundwater-result-table { width: 100%; table-layout: fixed; font-size: 9px; }
+  .groundwater-result-table th, .groundwater-result-table td { padding: 6px 2px; overflow-wrap: anywhere; }
+  .well-profile-section { width: 100% !important; overflow: hidden !important; }
+  .well-profile { position: relative; width: 100% !important; min-width: 0 !important; max-width: 100% !important; margin-left: 0 !important; overflow: hidden; }
+  .well-depth-line { width: 100% !important; }
+  .well-depth-line span { width: 14% !important; padding-right: 2px; font-size: 8px; }
+  .well-casing, .well-screen, .lnapl-layer, .well-bottom { left: 40% !important; width: 14% !important; }
+  .groundwater-level { left: 16% !important; width: 70% !important; }
+  .well-screen span, .lnapl-label, .well-bottom span { left: 110% !important; width: 210% !important; max-width: 210%; font-size: 8px !important; white-space: normal; }
+  .lnapl-icon { left: -145% !important; }
 
-  /* Soil profile is rebuilt proportionally for phone width rather than keeping a 560/620px canvas. */
-  .borehole-section { width: 100%; max-width: 100%; overflow: hidden; }
-  .borehole-profile { width: 100%; min-width: 0; max-width: 100%; margin-left: 0; }
-  .depth-scale { width: 13%; }
-  .depth-tick span { width: 82%; padding-right: 4px; font-size: 9px; }
-  .geology-column { left: 14%; width: 35%; }
-  .sample-column { left: 51%; width: 49%; }
-  .geology-layer { padding: 4px 5px; font-size: 10px; }
-  .geology-name { font-size: 10px; }
-  .geology-depth { font-size: 8px; margin-top: 2px; }
-  .sample-depth-block { padding: 4px 5px; font-size: 9px; }
-  .sample-name { font-size: 9px; overflow-wrap: anywhere; }
-  .sample-concentration { font-size: 8px; }
-  .profile-warning { font-size: 7px; padding: 1px 3px; margin-left: 2px; }
-
-  /* Monitoring-well profile also uses percentages on phone. */
-  .well-profile-section { width: 100%; max-width: 100%; overflow: hidden; }
-  .well-profile { width: 100%; min-width: 0; max-width: 100%; margin-left: 0; }
-  .well-depth-line span { width: 12%; padding-right: 3px; font-size: 9px; }
-  .well-casing, .well-screen { left: 40%; width: 14%; }
-  .well-screen span { left: 120%; width: 180%; font-size: 9px; }
-  .groundwater-level { left: 18%; width: 68%; }
-
-  .leaflet-control-zoom a { width: 34px; height: 34px; line-height: 34px; }
+  /* Tabs/charts scroll internally instead of widening body. */
+  .detail-tabs { max-width: calc(100% + 24px); overflow-x: auto; }
+  .history-chart { width: 100%; max-width: 100%; overflow-x: auto; }
+  .excel-import-bar { width: 100%; max-width: 100%; }
+  #excel-file-name { min-width: 0; max-width: 100%; }
+  .leaflet-control-container { max-width: 100%; }
+  .map-status-legend { min-width: 0 !important; max-width: min(180px,70vw); }
 }
 
 @media (max-width: 390px) {
   .map-panel, .info-panel { padding: 10px; }
   #map { min-height: 250px; }
-  .large-result-table { font-size: 9px; }
-  .large-result-table th, .large-result-table td { padding: 5px 2px; }
 }
