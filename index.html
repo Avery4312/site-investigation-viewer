@@ -15,26 +15,32 @@
     <header>
         <h1>環境場址調查成果平台</h1>
         <p id="site-description">互動式查看場址調查點位、採樣深度與分析結果</p>
-        <div class="excel-import-bar">
-            <label class="excel-file-button" for="excel-file">選擇 Excel</label>
-            <input id="excel-file" type="file" accept=".xlsx,.xls" hidden>
-            <span id="excel-file-name">尚未選擇檔案</span>
-            <button id="excel-preview-button" type="button" disabled>檢查資料</button>
-            <button id="excel-apply-button" type="button" disabled>套用更新</button>
-        </div>
-        <div id="excel-import-status" class="excel-import-status">可匯入「環境場址調查資料匯入範本.xlsx」。資料只在目前瀏覽器頁面中套用，不會直接修改 GitHub。</div>
 
-        <details id="data-editor" class="data-editor" hidden>
-            <summary>線上資料編輯器</summary>
-            <div class="data-editor-body">
-                <div class="editor-toolbar">
-                    <button id="editor-apply" type="button" disabled>套用到畫面</button>
-                    <button id="editor-download" class="secondary" type="button" disabled>下載目前資料 XLSX</button>
-                    <span class="editor-note">修改只存在目前瀏覽器；下載 XLSX 可保存本次調整。</span>
+        <details class="excel-tools-panel">
+            <summary>Excel 資料管理</summary>
+            <div class="excel-tools-body">
+                <div class="excel-import-bar">
+                    <label class="excel-file-button" for="excel-file">選擇 Excel</label>
+                    <input id="excel-file" type="file" accept=".xlsx,.xls" hidden>
+                    <span id="excel-file-name">尚未選擇檔案</span>
+                    <button id="excel-preview-button" type="button" disabled>檢查資料</button>
+                    <button id="excel-apply-button" type="button" disabled>套用更新</button>
                 </div>
-                <div id="editor-tabs" class="editor-tabs"></div>
-                <div id="editor-table-wrap" class="editor-table-wrap"></div>
-                <div id="editor-status" class="editor-status"></div>
+                <div id="excel-import-status" class="excel-import-status">可匯入「環境場址調查資料匯入範本.xlsx」。資料只在目前瀏覽器頁面中套用，不會直接修改 GitHub。</div>
+
+                <details id="data-editor" class="data-editor" hidden>
+                    <summary>線上資料編輯器</summary>
+                    <div class="data-editor-body">
+                        <div class="editor-toolbar">
+                            <button id="editor-apply" type="button" disabled>套用到畫面</button>
+                            <button id="editor-download" class="secondary" type="button" disabled>下載目前資料 XLSX</button>
+                            <span class="editor-note">修改只存在目前瀏覽器；下載 XLSX 可保存本次調整。</span>
+                        </div>
+                        <div id="editor-tabs" class="editor-tabs"></div>
+                        <div id="editor-table-wrap" class="editor-table-wrap"></div>
+                        <div id="editor-status" class="editor-status"></div>
+                    </div>
+                </details>
             </div>
         </details>
     </header>
