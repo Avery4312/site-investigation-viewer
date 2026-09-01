@@ -1,14 +1,69 @@
-/* MW02 LNAPL / 浮油 Demo 樣式 */
+/* Demo v2：LNAPL、分頁、歷時資料與地圖狀態 */
 
-.lnapl-info-item {
-    background-color: #fff7df;
-    border-color: #e1bd64;
+.lnapl-info-item { background-color: #fff7df; border-color: #e1bd64; }
+.lnapl-info-item strong { color: #8a5a00; }
+
+/* 右側資料分頁 */
+.detail-tabs {
+    position: sticky;
+    top: -20px;
+    z-index: 30;
+    display: flex;
+    gap: 4px;
+    margin: 12px -20px 22px;
+    padding: 10px 20px 0;
+    background: white;
+    border-bottom: 1px solid #ddd;
+}
+.detail-tab {
+    appearance: none;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    background: transparent;
+    padding: 10px 14px;
+    color: #667085;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+.detail-tab:hover { background: #f6f8fa; color: #222; }
+.detail-tab.active { color: #176b87; border-bottom-color: #176b87; }
+.detail-tab-panel { display: none; }
+.detail-tab-panel.active { display: block; }
+.empty-tab-message {
+    padding: 28px;
+    border: 1px dashed #ccd3d9;
+    border-radius: 8px;
+    color: #667085;
+    text-align: center;
+    background: #fafbfc;
 }
 
-.lnapl-info-item strong {
-    color: #8a5a00;
+/* LNAPL 警示 */
+.lnapl-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 14px 16px;
+    border: 1px solid #e1bd64;
+    border-radius: 8px;
+    background: #fff7df;
+    color: #7a5200;
+}
+.lnapl-alert-icon {
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d99a19;
+    color: white;
 }
 
+/* 井內浮油 */
 .lnapl-layer {
     position: absolute;
     left: 150px;
@@ -19,7 +74,6 @@
     border-bottom: 2px solid #b87900;
     z-index: 10;
 }
-
 .lnapl-icon {
     position: absolute;
     left: -82px;
@@ -35,9 +89,8 @@
     justify-content: center;
     font-size: 11px;
     font-weight: 700;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 3px rgba(0,0,0,.25);
 }
-
 .lnapl-label {
     position: absolute;
     left: 65px;
@@ -48,12 +101,9 @@
     font-size: 12px;
     font-weight: 700;
 }
+.lnapl-label strong { margin-left: 5px; }
 
-.lnapl-label strong {
-    margin-left: 5px;
-}
-
-/* 封閉井底，避免井管看起來沒有底 */
+/* 封閉井底 */
 .well-bottom {
     position: absolute;
     left: 150px;
@@ -67,7 +117,6 @@
     background-color: #e5e5e5;
     z-index: 12;
 }
-
 .well-bottom span {
     position: absolute;
     left: 65px;
@@ -76,4 +125,73 @@
     color: #555;
     font-size: 12px;
     font-weight: 700;
+}
+.compact-profile-section { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* 歷時資料 */
+.history-chart {
+    height: 225px;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin: 20px 0 26px;
+    padding: 18px 16px 8px;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    background: #fafbfc;
+}
+.history-column {
+    flex: 1;
+    min-width: 58px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+.history-value { margin-bottom: 5px; color: #8a5a00; font-size: 12px; font-weight: 700; }
+.history-bar-wrap { height: 150px; width: 34px; display: flex; align-items: flex-end; }
+.history-bar { width: 100%; border-radius: 5px 5px 0 0; background: #d99a19; }
+.history-date { margin-top: 7px; color: #667085; font-size: 11px; white-space: nowrap; }
+.history-lnapl-cell { background: #fff7df; color: #8a5a00; font-weight: 700; }
+.demo-note { margin-top: 12px; color: #7a7f85; font-size: 12px; }
+
+/* 地圖狀態圖例 */
+.map-status-legend {
+    min-width: 135px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 1px 5px rgba(0,0,0,.25);
+    color: #333;
+    font-size: 12px;
+    line-height: 24px;
+}
+.map-legend-title { margin-bottom: 3px; font-weight: 700; }
+.legend-symbol { display: inline-flex; width: 14px; height: 14px; margin-right: 7px; vertical-align: -2px; align-items: center; justify-content: center; }
+.legend-symbol.soil { border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: #2a81cb; }
+.legend-symbol.well { box-sizing: border-box; border: 3px solid #176b87; border-radius: 50%; background: white; }
+.legend-symbol.oil { color: #d99a19; font-size: 15px; font-weight: 700; }
+
+/* MW02 平面浮油 Icon */
+.lnapl-map-marker { background: transparent; border: 0; }
+.lnapl-map-icon {
+    width: 18px;
+    height: 18px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d99a19;
+    color: white;
+    font-size: 9px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.35);
+}
+
+@media (max-width: 700px) {
+    .detail-tabs { overflow-x: auto; }
+    .detail-tab { white-space: nowrap; }
+    .history-chart { overflow-x: auto; justify-content: flex-start; }
+    .history-column { flex: 0 0 70px; }
 }
