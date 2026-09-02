@@ -4,6 +4,10 @@
  function numericValue(v){if(typeof v==='number')return v;if(typeof v==='string'&&/^\s*[0-9,.]+\s*$/.test(v))return Number(v.replace(/,/g,''));return null}
  function soilTphStandard(s){const c=[s?.['土壤:TPH']?.value,s?.TPH?.value,1000];return c.find(v=>typeof v==='number'&&isFinite(v))||1000}
  function tphLevel(v,standard){const n=numericValue(v);if(n===null)return'';if(n>=standard)return'exceed';if(n>=standard/2)return'warning';return''}
+ function pointLabTphLevel(point,standards){const standard=soilTphStandard(standards);let level='';(point.samples||[]).forEach(s=>{const current=tphLevel(s.results?.TPH?.value,standard);if(current==='exceed')level='exceed';else if(current==='warning'&&level!=='exceed')level='warning'});return level}
+ function soilPinIcon(level){const cls=level==='exceed'?'soil-risk-pin soil-risk-red':level==='warning'?'soil-risk-pin soil-risk-orange':'soil-risk-pin soil-risk-blue';return L.divIcon({className:'soil-risk-marker',html:`<span class="${cls}"><i></i></span>`,iconSize:[26,38],iconAnchor:[13,36],tooltipAnchor:[0,-32]})}
+ function recolorImportedSoilPins(data){if(typeof importedLayerGroup==='undefined'||!importedLayerGroup)return;const soil=data.sampling_points||[],layers=importedLayerGroup.getLayers().filter(l=>l instanceof L.Marker);soil.forEach((point,i)=>{const marker=layers[i];if(marker)marker.setIcon(soilPinIcon(pointLabTphLevel(point,data.standards||{})))});}
+ if(typeof applyImportedData==='function'){const originalApplyImportedData=applyImportedData;applyImportedData=function(data){originalApplyImportedData(data);recolorImportedSoilPins(data)}}
  function addProfileTracks(point,section,profile,standards,maxDepth){
   const old=profile.querySelector('.sample-column');if(old)old.remove();
   const options=[{key:'pid',label:'PID',unit:'ppmV'},{key:'fid',label:'FID',unit:'ppmV'},{key:'kit',label:'TPH Test Kit（柴）',unit:'mg/kg'},{key:'interp',label:'統計推估值（內插採用值）',unit:'mg/kg'}],standard=soilTphStandard(standards);
