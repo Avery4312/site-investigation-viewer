@@ -1,94 +1,18 @@
 // Browser-only data editor. Edits the currently imported workbook and reapplies it live.
-let editorWorkbook = null;
-let editorActiveSheet = null;
-
-const EDITOR_SHEETS = ['場址資訊','土壤點位','土壤樣品','地層','監測井','地下水檢測','水位浮油監測','法規標準'];
-const editorRoot = document.getElementById('data-editor');
-const editorTabs = document.getElementById('editor-tabs');
-const editorTableWrap = document.getElementById('editor-table-wrap');
-const editorApply = document.getElementById('editor-apply');
-const editorDownload = document.getElementById('editor-download');
-const editorStatus = document.getElementById('editor-status');
-
-function cloneWorkbook(workbook){
-  const out=XLSX.utils.book_new();
-  workbook.SheetNames.forEach(name=>{
-    const rows=XLSX.utils.sheet_to_json(workbook.Sheets[name],{header:1,defval:null,raw:true});
-    XLSX.utils.book_append_sheet(out,XLSX.utils.aoa_to_sheet(rows),name);
-  });
-  return out;
-}
-function editorSetStatus(text){editorStatus.textContent=text;}
-function editorSheetRows(name){
-  if(!editorWorkbook||!editorWorkbook.Sheets[name])return [];
-  return XLSX.utils.sheet_to_json(editorWorkbook.Sheets[name],{defval:null,range:2,raw:true});
-}
-function editorHeaders(name){
-  const sheet=editorWorkbook?.Sheets[name];if(!sheet)return [];
-  const matrix=XLSX.utils.sheet_to_json(sheet,{header:1,defval:null,raw:true});
-  return (matrix[2]||[]).map(v=>String(v??'').trim()).filter(Boolean);
-}
-function editorWriteRows(name,rows,headers){
-  const old=editorWorkbook.Sheets[name];
-  const matrix=XLSX.utils.sheet_to_json(old,{header:1,defval:null,raw:true});
-  const top=[matrix[0]||[],matrix[1]||[],headers];
-  rows.forEach(row=>top.push(headers.map(h=>row[h]??null)));
-  editorWorkbook.Sheets[name]=XLSX.utils.aoa_to_sheet(top);
-}
-function parseEditorValue(value,original){
-  if(typeof original==='number'){const n=Number(value);return Number.isFinite(n)?n:null;}
-  return value;
-}
-function renderEditorSheet(name){
-  editorActiveSheet=name;
-  editorTabs.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.sheet===name));
-  const rows=editorSheetRows(name),headers=editorHeaders(name);
-  if(!headers.length){editorTableWrap.innerHTML='<div class="editor-empty">此工作表沒有可編輯欄位。</div>';return;}
-  const table=document.createElement('table');table.className='editor-table';
-  table.innerHTML=`<thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody></tbody>`;
-  const tbody=table.querySelector('tbody');
-  rows.forEach((row,rowIndex)=>{
-    const tr=document.createElement('tr');
-    headers.forEach(header=>{
-      const td=document.createElement('td'),input=document.createElement('input');
-      const original=row[header];
-      input.value=original??'';input.dataset.row=String(rowIndex);input.dataset.header=header;
-      input.dataset.originalType=typeof original;
-      if(typeof original==='number'){input.type='number';input.step='any';}else input.type='text';
-      input.addEventListener('change',()=>{
-        const current=editorSheetRows(name),r=current[rowIndex]||{};
-        r[header]=input.dataset.originalType==='number'?parseEditorValue(input.value,0):input.value;
-        current[rowIndex]=r;editorWriteRows(name,current,headers);editorSetStatus('有尚未套用的修改。');
-      });
-      td.appendChild(input);tr.appendChild(td);
-    });tbody.appendChild(tr);
-  });
-  editorTableWrap.innerHTML='';editorTableWrap.appendChild(table);
-}
-function openEditor(workbook){
-  editorWorkbook=cloneWorkbook(workbook);editorRoot.hidden=false;editorApply.disabled=false;editorDownload.disabled=false;
-  editorTabs.innerHTML='';
-  EDITOR_SHEETS.filter(name=>editorWorkbook.Sheets[name]).forEach((name,index)=>{
-    const b=document.createElement('button');b.type='button';b.className=`editor-tab ${index===0?'active':''}`;b.dataset.sheet=name;b.textContent=name;b.addEventListener('click',()=>renderEditorSheet(name));editorTabs.appendChild(b);
-  });
-  const first=EDITOR_SHEETS.find(name=>editorWorkbook.Sheets[name]);if(first)renderEditorSheet(first);
-  editorSetStatus('可直接修改欄位；按「套用到畫面」即時重建地圖與剖面。');
-}
-editorApply.addEventListener('click',()=>{
-  if(!editorWorkbook)return;
-  const data=buildImportedData(editorWorkbook);
-  if(data.errors.length){editorSetStatus(`無法套用：${[...new Set(data.errors)].join('；')}`);return;}
-  importedWorkbookData=data;applyImportedData(data);editorSetStatus('已套用到目前畫面。重新整理網站仍會回到 GitHub Demo。');
-});
-editorDownload.addEventListener('click',()=>{
-  if(!editorWorkbook)return;
-  const stamp=new Date().toISOString().slice(0,10).replaceAll('-','');
-  XLSX.writeFile(editorWorkbook,`環境場址調查資料_網頁調整_${stamp}.xlsx`);
-  editorSetStatus('已下載目前網頁編輯器中的 XLSX。');
-});
-
-// Hook into the existing Excel chooser without changing its validation workflow.
-excelFileInput.addEventListener('change',async event=>{
-  const file=event.target.files[0];if(!file)return;
-  try{const wb=XLSX.read(await file.arrayBuffer(),{type:'array'});openEditor(wb);}catch(error){console.error(error);}
-});
+let editorWorkbook=null,editorActiveSheet=null;
+const EDITOR_SHEETS=['場址資訊','土壤點位','土壤樣品','現場篩測資料','地層','監測井','地下水檢測','水位浮油監測','法規標準'];
+const editorRoot=document.getElementById('data-editor'),editorTabs=document.getElementById('editor-tabs'),editorTableWrap=document.getElementById('editor-table-wrap'),editorApply=document.getElementById('editor-apply'),editorDownload=document.getElementById('editor-download'),editorStatus=document.getElementById('editor-status');
+const HEADER_HINTS=['Point_ID','點位編號','Sample_ID','樣品編號','Depth_From_m','深度_from_m','Depth_To_m','深度_to_m','TWD97_X','TWD97_Y','Well_ID','井號','Media','介質','Analyte','項目','欄位','值'];
+function cloneWorkbook(workbook){const out=XLSX.utils.book_new();workbook.SheetNames.forEach(name=>{const rows=XLSX.utils.sheet_to_json(workbook.Sheets[name],{header:1,defval:null,raw:true});XLSX.utils.book_append_sheet(out,XLSX.utils.aoa_to_sheet(rows),name)});return out}
+function editorSetStatus(text){editorStatus.textContent=text}
+function sheetMatrix(name){const sheet=editorWorkbook?.Sheets[name];return sheet?XLSX.utils.sheet_to_json(sheet,{header:1,defval:null,raw:true}):[]}
+function detectHeaderRow(name){const matrix=sheetMatrix(name);let best=0,bestScore=-1;for(let i=0;i<Math.min(matrix.length,12);i++){const row=(matrix[i]||[]).map(v=>String(v??'').trim()),nonEmpty=row.filter(Boolean).length,hints=row.filter(v=>HEADER_HINTS.includes(v)).length;const score=hints*20+Math.min(nonEmpty,10)-(i*.05);if(score>bestScore){bestScore=score;best=i}}return best}
+function editorHeaders(name){const matrix=sheetMatrix(name),idx=detectHeaderRow(name);return (matrix[idx]||[]).map(v=>String(v??'').trim())}
+function editorSheetRows(name){const matrix=sheetMatrix(name),idx=detectHeaderRow(name),headers=editorHeaders(name);return matrix.slice(idx+1).filter(r=>r.some(v=>v!==null&&v!==undefined&&v!=='')).map(r=>Object.fromEntries(headers.map((h,i)=>[h||`欄位${i+1}`,r[i]??null])))}
+function editorWriteRows(name,rows,headers){const matrix=sheetMatrix(name),idx=detectHeaderRow(name),prefix=matrix.slice(0,idx),head=headers;const out=[...prefix,head,...rows.map(row=>head.map((h,i)=>row[h||`欄位${i+1}`]??null))];editorWorkbook.Sheets[name]=XLSX.utils.aoa_to_sheet(out)}
+function parseEditorValue(value,original){if(typeof original==='number'){const n=Number(value);return Number.isFinite(n)?n:null}return value}
+function renderEditorSheet(name){editorActiveSheet=name;editorTabs.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.sheet===name));const rows=editorSheetRows(name),headers=editorHeaders(name);if(!headers.some(Boolean)){editorTableWrap.innerHTML='<div class="editor-empty">此工作表沒有可編輯欄位。</div>';return}const table=document.createElement('table');table.className='editor-table';table.innerHTML=`<thead><tr>${headers.map((h,i)=>`<th>${h||`欄位${i+1}`}</th>`).join('')}</tr></thead><tbody></tbody>`;const tbody=table.querySelector('tbody');rows.forEach((row,rowIndex)=>{const tr=document.createElement('tr');headers.forEach((header,colIndex)=>{const key=header||`欄位${colIndex+1}`,td=document.createElement('td'),input=document.createElement('input'),original=row[key];input.value=original??'';input.dataset.originalType=typeof original;if(typeof original==='number'){input.type='number';input.step='any'}else input.type='text';input.addEventListener('change',()=>{const current=editorSheetRows(name),r=current[rowIndex]||{};r[key]=input.dataset.originalType==='number'?parseEditorValue(input.value,0):input.value;current[rowIndex]=r;editorWriteRows(name,current,headers);editorSetStatus('有尚未套用的修改。')});td.appendChild(input);tr.appendChild(td)});tbody.appendChild(tr)});editorTableWrap.innerHTML='';editorTableWrap.appendChild(table)}
+function openEditor(workbook){editorWorkbook=cloneWorkbook(workbook);editorRoot.hidden=false;editorApply.disabled=false;editorDownload.disabled=false;editorTabs.innerHTML='';EDITOR_SHEETS.filter(name=>editorWorkbook.Sheets[name]).forEach((name,index)=>{const b=document.createElement('button');b.type='button';b.className=`editor-tab ${index===0?'active':''}`;b.dataset.sheet=name;b.textContent=name;b.addEventListener('click',()=>renderEditorSheet(name));editorTabs.appendChild(b)});const first=EDITOR_SHEETS.find(name=>editorWorkbook.Sheets[name]);if(first)renderEditorSheet(first);editorSetStatus('已自動辨識各工作表實際標頭列；可直接修改後套用到畫面。')}
+editorApply.addEventListener('click',()=>{if(!editorWorkbook)return;const data=buildImportedData(editorWorkbook);if(data.errors.length){editorSetStatus(`無法套用：${[...new Set(data.errors)].join('；')}`);return}importedWorkbookData=data;applyImportedData(data);editorSetStatus('已套用到目前畫面。重新整理網站仍會回到 GitHub Demo。')});
+editorDownload.addEventListener('click',()=>{if(!editorWorkbook)return;const stamp=new Date().toISOString().slice(0,10).replaceAll('-','');XLSX.writeFile(editorWorkbook,`環境場址調查資料_網頁調整_${stamp}.xlsx`);editorSetStatus('已下載目前網頁編輯器中的 XLSX。')});
+excelFileInput.addEventListener('change',async event=>{const file=event.target.files[0];if(!file)return;try{const wb=XLSX.read(await file.arrayBuffer(),{type:'array'});openEditor(wb)}catch(error){console.error(error)}});
