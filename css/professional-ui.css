@@ -49,3 +49,29 @@
 .allwell-card.carried-data svg{opacity:.58}
 .carry-badge{display:inline-block;margin-left:8px;padding:2px 6px;border:1px solid #9aa8af;border-radius:10px;font-size:11px;font-weight:500;color:#687981;vertical-align:2px}
 .allwell-card.carried-data .allwell-foot{color:#687981}
+
+/* Mobile LNAPL overview: compact multi-well comparison */
+@media(max-width:700px){
+  .detail-tabs{display:flex!important;flex-wrap:wrap!important;gap:0 8px!important}
+  .detail-tab{font-size:13px!important;padding:9px 8px!important}
+  .allwells-control{position:sticky;top:0;z-index:5;background:#fff;grid-template-columns:1fr auto!important;gap:6px 10px!important;margin:0 0 10px!important;padding:8px 2px!important}
+  .allwells-control .all-date{font-size:15px!important}
+  .allwells-control input{grid-column:1/-1;height:20px;margin:0!important}
+  .allwells-control .all-count{font-size:12px!important}
+  .allwells-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .allwell-card,.allwell-card:last-child{border:1px solid #e1e6e9!important;border-radius:6px!important;padding:6px 4px 7px!important;overflow:hidden!important}
+  .allwell-card h4{font-size:13px!important;margin:0 0 1px 4px!important;white-space:nowrap}
+  .carry-badge{font-size:8px!important;padding:1px 4px!important;margin-left:4px!important}
+  .allwell-card svg{width:100%!important;height:205px!important;max-height:205px!important}
+  .allwell-card svg .gw-depth-text{font-size:10px!important}
+  .allwell-card svg .gw-oil-text{font-size:10px!important}
+  .allwell-card svg .gw-water-text{font-size:9px!important}
+  .allwell-foot{font-size:9px!important;line-height:1.35!important;white-space:normal!important;min-height:24px}
+  .allwell-nodata{font-size:10px!important}
+  .allwell-card.carried-data::after{inset:24px 3px 25px!important}
+}
+@media(max-width:390px){
+  .allwells-grid{gap:5px!important}
+  .allwell-card svg{height:185px!important;max-height:185px!important}
+  .allwell-foot{font-size:8.5px!important}
+}
