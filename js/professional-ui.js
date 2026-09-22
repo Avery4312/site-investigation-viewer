@@ -1,7 +1,7 @@
 // 專業化 UI：多軌垂直調查剖面
 (function(){
  const isMobile=()=>window.matchMedia('(max-width:600px)').matches;
- const profilePrefs=window.profilePrefs||(window.profilePrefs={selected:['kit','interp'],vscale:.9,wscale:.85,userScaled:false});
+ const profilePrefs=window.profilePrefs||(window.profilePrefs={selected:['kit','interp'],vscale:1.1,wscale:.85,userScaled:false});
  function displayValue(v){if(v===null||v===undefined||v==='')return'—';return typeof v==='number'?v.toLocaleString():String(v)}
  function numericValue(v){if(typeof v==='number')return v;if(typeof v==='string'&&/^\s*[0-9,.]+\s*$/.test(v))return Number(v.replace(/,/g,''));return null}
  function soilTphStandard(s){const c=[s?.['土壤:TPH']?.value,s?.TPH?.value,1000];return c.find(v=>typeof v==='number'&&isFinite(v))||1000}
@@ -14,7 +14,7 @@
  function addProfileTracks(point,section,profile,standards,maxDepth){
   const old=profile.querySelector('.sample-column');if(old)old.remove();
   const defs=point.data_metrics||{};const options=Object.entries(defs).filter(([,m])=>m&&m.kind!=='lab').map(([key,m])=>({key,label:m.label||key,unit:m.unit||''}));const standard=soilTphStandard(standards);
-  const selector=document.createElement('div');selector.className='profile-metric-selector';const vMin=.6,vMax=1.5;if(!profilePrefs.userScaled)profilePrefs.vscale=.9;selector.innerHTML='<span class="profile-selector-title">加選剖面項目</span>'+options.map(m=>`<label><input type="checkbox" value="${m.key}"${profilePrefs.selected.includes(m.key)?' checked':''}>${m.label}</label>`).join('')+`<span class="profile-size-controls"><label>垂直比例 <input class="profile-vscale" type="range" min="${vMin}" max="${vMax}" step="0.1" value="${profilePrefs.vscale}"></label><label>欄寬 <input class="profile-wscale" type="range" min="0.5" max="1.8" step="0.1" value="${profilePrefs.wscale}"></label></span>`;
+  const selector=document.createElement('div');selector.className='profile-metric-selector';const vMin=.6,vMax=1.5;if(!profilePrefs.userScaled)profilePrefs.vscale=1.1;selector.innerHTML='<span class="profile-selector-title">加選剖面項目</span>'+options.map(m=>`<label><input type="checkbox" value="${m.key}"${profilePrefs.selected.includes(m.key)?' checked':''}>${m.label}</label>`).join('')+`<span class="profile-size-controls"><label>垂直比例 <input class="profile-vscale" type="range" min="${vMin}" max="${vMax}" step="0.1" value="${profilePrefs.vscale}"></label><label>欄寬 <input class="profile-wscale" type="range" min="0.5" max="1.8" step="0.1" value="${profilePrefs.wscale}"></label></span>`;
   const title=section.querySelector('h3,h2');if(title){let row=document.createElement('div');row.className='profile-heading-row';title.parentNode.insertBefore(row,title);row.appendChild(title);row.appendChild(selector)}else section.insertBefore(selector,profile);
   const lab=document.createElement('div');lab.className='profile-data-track profile-lab-track';profile.appendChild(lab);
   function block(track,from,to,value,level=''){if(value===null||value===undefined||value==='')return;const e=document.createElement('div');e.className='profile-track-block'+(level==='exceed'?' profile-track-exceed':level==='warning'?' profile-track-warning':'');e.dataset.from=from;e.dataset.to=to;const flag=level==='exceed'?'<span class="profile-exceed-text">超標</span>':level==='warning'?'<span class="profile-warning-text">≥ 1/2 管制標準</span>':'';e.innerHTML=`<div class="profile-value-line"><strong>${displayValue(value)}</strong>${flag}</div>`;track.appendChild(e)}
