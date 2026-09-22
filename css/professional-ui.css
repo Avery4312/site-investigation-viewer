@@ -42,3 +42,10 @@
 
 /* Groundwater/LNAPL v4 */
 .gw-profile-layout{border:0!important;border-radius:0!important;padding:8px 0 12px!important;gap:26px!important}.gw-profile-chart-v3{border-right:1px solid #cfd8dc!important;padding-right:22px!important}.gw-profile-v3,.gw-profile-v3 text,.gw-profile-side{font-size:14px}.gw-axis-title,.gw-depth-text,.gw-bottom-text,.gw-water-text{font-size:13px!important}.gw-oil-text{font-size:14px!important}.gw-side-label,.gw-side-head span{font-size:13px!important}.gw-metrics>div{font-size:14px!important}.gw-metrics strong{font-size:16px!important}.allwells-control{display:grid;grid-template-columns:minmax(170px,auto) 1fr auto;gap:14px;align-items:center;margin:8px 0 18px;padding:10px 0;border-bottom:1px solid #d8e0e4}.allwells-control input{width:100%;accent-color:#0b80bd}.allwells-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.allwell-card{border-right:1px solid #d8e0e4;padding:0 12px 10px}.allwell-card h4{font-size:16px;margin:0 0 4px}.allwell-card svg{display:block;width:100%;height:auto}.allwell-card.no-data{opacity:.58}.allwell-nodata{font-size:13px;fill:#6b7b83}.allwell-foot{text-align:center;font-size:13px;color:#40545d;margin-top:4px}@media(max-width:950px){.gw-profile-chart-v3{border-right:0!important;border-bottom:1px solid #cfd8dc!important}.allwells-control{grid-template-columns:1fr}.allwell-card{border-right:0;border-bottom:1px solid #d8e0e4}}
+
+/* carried-forward LNAPL data: previous 10 days only */
+.allwell-card.carried-data{position:relative}
+.allwell-card.carried-data::after{content:"";position:absolute;inset:28px 8px 28px;background:repeating-linear-gradient(135deg,rgba(110,125,135,.08) 0,rgba(110,125,135,.08) 8px,rgba(255,255,255,.18) 8px,rgba(255,255,255,.18) 16px);pointer-events:none;border-radius:4px}
+.allwell-card.carried-data svg{opacity:.58}
+.carry-badge{display:inline-block;margin-left:8px;padding:2px 6px;border:1px solid #9aa8af;border-radius:10px;font-size:11px;font-weight:500;color:#687981;vertical-align:2px}
+.allwell-card.carried-data .allwell-foot{color:#687981}
