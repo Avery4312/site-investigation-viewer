@@ -7,3 +7,14 @@
 /* Inline profile value/status presentation */
 .profile-value-line{display:flex;align-items:center;gap:6px;max-width:100%;white-space:nowrap}.profile-value-line strong{display:inline-block}.profile-value-line .profile-exceed-text,.profile-value-line .profile-warning-text{display:inline-block;margin-top:0;flex:0 0 auto;white-space:nowrap}
 .warning{background:#fff1dc}.warning strong{color:#a85b00}.warning-label,.exceed-label{display:inline-block;margin-left:6px;padding:2px 5px;border-radius:3px;font-size:10px;font-weight:700;white-space:nowrap}.warning-label{background:#e58a13;color:#fff}.exceed-label{background:#d93636;color:#fff}.warning-example{padding:4px 8px;border-radius:4px;background:#fff1dc;color:#a85b00;font-weight:700}
+
+/* 2026-09-22 profile compact geology + responsive headers */
+.professional-profile .geology-column{width:18%!important}
+.profile-lab-track{left:29%;width:71%}
+.profile-optional-track{left:calc(29% + (var(--track-index) + 1) * (71% / (var(--optional-count) + 1)));width:calc(71% / (var(--optional-count) + 1))}
+.multi-track-profile:has(.profile-optional-track) .profile-lab-track{width:calc(71% / (var(--optional-count) + 1))}
+.profile-track-header{height:auto;min-height:25px;overflow:hidden;text-overflow:clip;display:flex;align-items:center;gap:3px;white-space:nowrap}
+.profile-track-header .profile-header-unit{display:inline;white-space:nowrap}
+@container (max-width: 150px){.profile-track-header{flex-direction:column;align-items:flex-start;line-height:1.05}.profile-track-header .profile-header-unit{display:block}}
+.profile-data-track{container-type:inline-size}
+@media(max-width:600px){.professional-profile .geology-column{left:13%!important;width:21%!important}.profile-lab-track{left:34%;width:66%}.profile-optional-track{left:calc(34% + (var(--track-index) + 1) * (66% / (var(--optional-count) + 1)));width:calc(66% / (var(--optional-count) + 1))}.multi-track-profile:has(.profile-optional-track) .profile-lab-track{width:calc(66% / (var(--optional-count) + 1))}}
