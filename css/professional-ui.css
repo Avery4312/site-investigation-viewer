@@ -18,3 +18,12 @@
 @container (max-width: 150px){.profile-track-header{flex-direction:column;align-items:flex-start;line-height:1.05}.profile-track-header .profile-header-unit{display:block}}
 .profile-data-track{container-type:inline-size}
 @media(max-width:600px){.professional-profile .geology-column{left:13%!important;width:21%!important}.profile-lab-track{left:34%;width:66%}.profile-optional-track{left:calc(34% + (var(--track-index) + 1) * (66% / (var(--optional-count) + 1)));width:calc(66% / (var(--optional-count) + 1))}.multi-track-profile:has(.profile-optional-track) .profile-lab-track{width:calc(66% / (var(--optional-count) + 1))}}
+
+/* 2026-09-22 soil detail/profile spacing cleanup */
+.large-result-table .standard-row th{background:#fff!important;border-bottom:1px solid #ddd!important}
+.table-header-unit{font-size:11px;font-weight:600;white-space:nowrap}
+.borehole-section{border-top:0!important;margin-top:20px!important;padding-top:0!important}
+.profile-heading-row{border-top:1px solid #ddd!important;margin-top:18px!important;padding-top:12px!important}
+.borehole-profile.professional-profile{margin-top:44px!important}
+.profile-track-header{top:-43px!important;min-height:41px!important;justify-content:center;flex-direction:column;align-items:flex-start;line-height:1.05}
+.profile-track-header .profile-header-unit{display:block!important}
